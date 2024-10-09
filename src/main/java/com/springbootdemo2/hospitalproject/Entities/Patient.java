@@ -1,5 +1,6 @@
 package com.springbootdemo2.hospitalproject.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -32,18 +33,25 @@ public class Patient {
     private Date dob;
     @Column(name = "Mob_No")
     private Integer mobile;
-
+    @Column(name = "r_id")
+    private Integer roomid;
 
     @OneToMany(mappedBy = "patientEntity")
-    @JsonIgnore
+  //  @JsonIgnore
     @JsonManagedReference
     private List<Bills> bills;
 
 
     @OneToMany(mappedBy = "patientEntity")
-    @JsonIgnore
+//    @JsonIgnore
     @JsonManagedReference
     private List<TestReport> testReports;
+
+    @ManyToOne
+//    @JsonIgnore
+    @JsonBackReference
+    @JoinColumn(name = "r_id",insertable = false, updatable = false)
+    private Rooms RoomEntity;
 
 
 }
