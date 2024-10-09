@@ -38,4 +38,12 @@ public class Patient {
     @JsonIgnore
     @JsonManagedReference
     private List<Bills> bills;
+
+
+    @OneToMany(mappedBy = "patientEntity")
+    @JsonIgnore
+    @JsonManagedReference
+    private List<TestReport> testReports;
+
+
 }
