@@ -27,7 +27,7 @@ public class Bills {
 
 
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     @JsonBackReference
     @JoinColumn(name = "p_id", insertable = false, updatable = false)
     private Patient patientEntity;

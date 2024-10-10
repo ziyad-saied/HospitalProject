@@ -1,11 +1,14 @@
 package com.springbootdemo2.hospitalproject.Controller;
 
 import com.springbootdemo2.hospitalproject.Entities.Doctor;
+import com.springbootdemo2.hospitalproject.Entities.Patient;
 import com.springbootdemo2.hospitalproject.Services.DoctorServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("doctor")
@@ -47,5 +50,12 @@ public class DoctorController {
     @DeleteMapping("/deleteAllDoctor")
     public void deleteAllDoctors() {
         doctorServices.deleteAllDoctors();
+    }
+
+    //Set Doctors To Patients
+    @PostMapping("/setDoctorsToPatients")
+    public ResponseEntity<String> setDoctorsToPatients(@RequestParam Integer docId,@RequestBody Set<Integer> patientsId){
+        doctorServices.setPatientsToDoctors(docId,patientsId);
+        return ResponseEntity.ok("Success");
     }
 }

@@ -28,7 +28,7 @@ public class TestReport {
 
     @ManyToOne
     @JsonBackReference
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "p_id", insertable = false, updatable = false)
     private Patient patientEntity;
 }

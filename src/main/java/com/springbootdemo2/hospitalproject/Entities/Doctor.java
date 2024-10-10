@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -30,5 +31,5 @@ public class Doctor extends Employee{
             joinColumns =@JoinColumn(name = "doc_id"),
             inverseJoinColumns = @JoinColumn(name = "p-id")
     )
-    private List<Patient> patients;
+    private Set<Patient> patients;
 }
