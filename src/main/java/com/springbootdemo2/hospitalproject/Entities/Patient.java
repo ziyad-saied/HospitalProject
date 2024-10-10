@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -37,23 +38,23 @@ public class Patient {
     private Integer roomid;
 
     @OneToMany(mappedBy = "patientEntity")
-    @JsonIgnore
+    //@JsonIgnore
     @JsonManagedReference
     private List<Bills> bills;
 
     @OneToMany(mappedBy = "patientEntity")
-    @JsonIgnore
+    //@JsonIgnore
     @JsonManagedReference
     private List<TestReport> testReports;
 
     @ManyToOne
-    @JsonIgnore
+    //@JsonIgnore
     @JsonBackReference
     @JoinColumn(name = "r_id",insertable = false, updatable = false)
     private Rooms RoomEntity;
 
 
     @ManyToMany(mappedBy = "patients")
-    private List<Doctor> doctors;
+    private Set<Doctor> doctors;
 
 }

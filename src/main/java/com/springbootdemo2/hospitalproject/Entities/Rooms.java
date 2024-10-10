@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,10 +32,11 @@ public class Rooms {
     private boolean availability;
 
     @OneToMany(mappedBy = "RoomEntity")
-    @JsonIgnore
+   // @JsonIgnore
     @JsonManagedReference
     public List<Patient> patients;
 
+
     @ManyToMany(mappedBy = "rooms")
-    private List<Nurse> nurses;
+    private Set<Nurse> nurses;
 }

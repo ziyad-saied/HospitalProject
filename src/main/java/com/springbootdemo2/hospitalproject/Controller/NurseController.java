@@ -3,9 +3,11 @@ package com.springbootdemo2.hospitalproject.Controller;
 import com.springbootdemo2.hospitalproject.Entities.Nurse;
 import com.springbootdemo2.hospitalproject.Services.NurseServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/nurse")
@@ -48,5 +50,11 @@ public class NurseController {
     @DeleteMapping("/deleteAllNurse")
     public void deleteAllNurses() {
         nurseServices.deleteAllNurses();
+    }
+
+    @PostMapping("/assignNurseToRooms")
+    public ResponseEntity<String> assignNurseToRooms(@RequestParam int nurseId, @RequestBody Set<Integer>courseId) {
+        nurseServices.assignNursesToRooms(nurseId, courseId);
+        return ResponseEntity.ok("Success");
     }
 }

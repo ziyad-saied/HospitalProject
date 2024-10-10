@@ -1,19 +1,25 @@
 package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Doctor;
+import com.springbootdemo2.hospitalproject.Entities.Patient;
 import com.springbootdemo2.hospitalproject.Repositories.DoctorRepo;
-import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
+import com.springbootdemo2.hospitalproject.Repositories.PatientRepo;
+import jakarta.persistence.SecondaryTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class DoctorServices {
     @Autowired
     private DoctorRepo doctorRepo;
 
+    @Autowired
+    private PatientRepo patientRepo;
     //Add Doctor
     public Doctor addDoctor(Doctor doctor) {
         return doctorRepo.save(doctor);
@@ -57,7 +63,7 @@ public class DoctorServices {
             return doctorRepo.save(doc);
         }
         else
-            throw new ResourceNotFoundException("Doctor not found, please enter a valid id");
+            return null;
     }
 
     //Delete Doctor By Id
@@ -68,5 +74,18 @@ public class DoctorServices {
     //Delete All Doctor
     public void deleteAllDoctors() {
         doctorRepo.deleteAll();
+    }
+
+    //Set Patients To Doctors
+    public void setPatientsToDoctors(Integer doctorId, Set<Integer> patientId){
+        Doctor doctor = doctorRepo.findById(doctorId).orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        Set<Patient> patients = new HashSet<>();
+        for(Integer patientIds : patientId){
+            Patient patient = patientRepo.findById(patientIds).orElseThrow(() -> new RuntimeException("Patient not found"));
+            patients.add(patient);
+        }
+        doctor.setPatients(patients);
+        doctorRepo.save(doctor);
     }
 }

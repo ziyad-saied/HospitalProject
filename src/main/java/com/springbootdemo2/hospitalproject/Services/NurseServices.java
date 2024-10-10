@@ -1,19 +1,24 @@
 package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Nurse;
+import com.springbootdemo2.hospitalproject.Entities.Rooms;
 import com.springbootdemo2.hospitalproject.Repositories.NurseRepo;
-import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
+import com.springbootdemo2.hospitalproject.Repositories.RoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class NurseServices {
     @Autowired
     private NurseRepo nurseRepo;
 
+    @Autowired
+    private RoomRepo roomRepo;
     //Add Nurse
     public Nurse addNurse(Nurse nurse) {
         return nurseRepo.save(nurse);
@@ -53,7 +58,7 @@ public class NurseServices {
             return nurseRepo.save(nurse1);
         }
         else
-            throw new ResourceNotFoundException("Nurse not found, please enter a valid id");
+            return null;
     }
 
     //Delete Nurse By Id
@@ -64,6 +69,18 @@ public class NurseServices {
     //Delete All Nurses
     public void deleteAllNurses() {
         nurseRepo.deleteAll();
+    }
+
+    //Assign Nurses To Rooms
+    public void assignNursesToRooms(int nurseId,Set<Integer> roomsId){
+        Nurse nurse = nurseRepo.findById(nurseId).orElseThrow(() -> new RuntimeException("Nurse not found"));
+        Set<Rooms> rooms =new HashSet<>();
+        for(Integer roomId : roomsId){
+            Rooms rooms1 = roomRepo.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
+            rooms.add(rooms1);
+        }
+        nurse.setRooms(rooms);
+        nurseRepo.save(nurse);
     }
 }
 
