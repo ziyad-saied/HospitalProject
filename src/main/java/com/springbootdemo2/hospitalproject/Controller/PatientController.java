@@ -45,6 +45,7 @@ public class PatientController {
         return this.patientServices.updatePatientById(patient,id);
     }
 
+
     //Delete Patient By Id
     @DeleteMapping("/deletePatientById")
     public void deletePatientById(@RequestParam int id) {

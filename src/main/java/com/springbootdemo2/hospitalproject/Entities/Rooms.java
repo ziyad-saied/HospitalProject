@@ -34,4 +34,7 @@ public class Rooms {
     @JsonIgnore
     @JsonManagedReference
     public List<Patient> patients;
+
+    @ManyToMany(mappedBy = "rooms")
+    private List<Nurse> nurses;
 }
