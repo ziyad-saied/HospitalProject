@@ -2,6 +2,7 @@ package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Rooms;
 import com.springbootdemo2.hospitalproject.Repositories.RoomRepo;
+import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class RoomServices {
             return roomRepo.save(rooms1);
         }
         else
-            return null;
+            throw new ResourceNotFoundException("Room with id " + id + " not found, please enter a valid id");
     }
 
     //Delete Room By Id

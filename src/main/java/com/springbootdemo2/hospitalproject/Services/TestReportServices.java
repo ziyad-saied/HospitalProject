@@ -2,6 +2,7 @@ package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.TestReport;
 import com.springbootdemo2.hospitalproject.Repositories.TestReportRepo;
+import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class TestReportServices {
             return testReportRepo.save(testReport1);
         }
         else
-            return null;
+            throw new ResourceNotFoundException("Test report with id " + id + " not found, please enter a valid id");
     }
 
     //Delete Report By Id

@@ -2,6 +2,7 @@ package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Nurse;
 import com.springbootdemo2.hospitalproject.Repositories.NurseRepo;
+import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +53,7 @@ public class NurseServices {
             return nurseRepo.save(nurse1);
         }
         else
-            return null;
+            throw new ResourceNotFoundException("Nurse not found, please enter a valid id");
     }
 
     //Delete Nurse By Id

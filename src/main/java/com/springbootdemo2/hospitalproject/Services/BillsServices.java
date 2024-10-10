@@ -1,6 +1,7 @@
 package com.springbootdemo2.hospitalproject.Services;
 import com.springbootdemo2.hospitalproject.Entities.Bills;
 import com.springbootdemo2.hospitalproject.Repositories.BillsRepo;
+import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class BillsServices {
             return billsRepo.save(bills1);
         }
         else {
-            return null;
+            throw new ResourceNotFoundException("Bill Not Found, please enter a valid id");
         }
     }
 }

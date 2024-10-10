@@ -2,6 +2,7 @@ package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Patient;
 import com.springbootdemo2.hospitalproject.Repositories.PatientRepo;
+import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class PatientServices {
             return patientRepo.save(existingPatient);
         }
         else {
-            return null;
+            throw new ResourceNotFoundException("Patient not found, please enter a valid id");
         }
     }
 

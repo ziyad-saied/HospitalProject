@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Setter
 @Getter
@@ -17,4 +21,12 @@ public class Receptionist extends Employee{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recep_id")
     private Integer receptionistId;
+
+    @ManyToMany(mappedBy = "recordId" ,cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "receptionist_maintains_records",
+            joinColumns = @JoinColumn(name = "recep_id"),
+            inverseJoinColumns = @JoinColumn(name = "record_id")
+    )
+    private Set<Records> recordsId;
 }
