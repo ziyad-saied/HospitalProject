@@ -51,6 +51,9 @@ public class PatientController {
     //Delete Patient By Id
     @DeleteMapping("/deletePatientById")
     public void deletePatientById(@RequestParam int id) {
+
+        //Alaa Test 1
+        //Alaa Test 2
         this.patientServices.deletePatientById(id);
     }
 }
