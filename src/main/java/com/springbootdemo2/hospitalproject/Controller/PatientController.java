@@ -2,6 +2,7 @@ package com.springbootdemo2.hospitalproject.Controller;
 
 
 import com.springbootdemo2.hospitalproject.Entities.Patient;
+import com.springbootdemo2.hospitalproject.EntitiesDTO.PatientDTO;
 import com.springbootdemo2.hospitalproject.Services.PatientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,25 +18,26 @@ public class PatientController {
 
     //Return All Patients API
     @GetMapping("/getAllPatients")
-    public List<Patient> getAllPatients() {
+    public List<PatientDTO> getAllPatients() {
         return patientServices.getAllPatients();
     }
 
     //Return Patient By Id
     @GetMapping("/getPatientById")
-    public Patient getPatientById(@RequestParam int id) {
+    public PatientDTO getPatientById(@RequestParam int id) {
         return patientServices.getPatientById(id);
     }
 
     //Add Patient
     @PostMapping("/addPatient")
-    public Patient addPatient(@RequestBody Patient patient) {
+    public PatientDTO addPatient(@RequestBody PatientDTO patient) {
         return patientServices.addPatient(patient);
     }
 
     //Find Patient By Id
     @GetMapping("/findPatientById")
-    public Patient findPatientById(@RequestParam int id) {
+    public PatientDTO findPatientById(@RequestParam int id) {
+        // Test Merging
         return patientServices.getPatientById(id);
     }
 

@@ -15,11 +15,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Records")
-public class Records  extends Employee{
+public class Records {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "R_ID")
-    private Integer recordId;
+    @Column(name = "r_id")
+    private Integer rid;
 
     @Column(name = "Record_no")
     private Integer recordNo;

@@ -3,11 +3,9 @@ package com.springbootdemo2.hospitalproject.Entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.springbootdemo2.hospitalproject.EntitiesDTO.PatientDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "patient")
@@ -57,4 +56,14 @@ public class Patient {
     @ManyToMany(mappedBy = "patients")
     private Set<Doctor> doctors;
 
+
+    public static Patient toEntity(PatientDTO patientDTO) {
+        return Patient.builder()
+                .name(patientDTO.getName())
+                .gender(patientDTO.getGender())
+                .age(patientDTO.getAge())
+                .mobile(patientDTO.getMobile())
+                .roomid(patientDTO.getRoomid())
+                .build();
+    }
 }

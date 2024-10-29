@@ -29,7 +29,6 @@ public class BillsServices {
     //Insert Bill
     public Bills AddBill(Bills bills) {
         return billsRepo.save(bills);
-
     }
     //Update Bill By Id
     public Bills updateBill(Integer id,Bills bills) {

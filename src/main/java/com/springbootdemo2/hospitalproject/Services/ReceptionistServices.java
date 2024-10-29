@@ -1,8 +1,11 @@
 package com.springbootdemo2.hospitalproject.Services;
 
+import com.springbootdemo2.hospitalproject.Entities.Nurse;
 import com.springbootdemo2.hospitalproject.Entities.Receptionist;
 import com.springbootdemo2.hospitalproject.Entities.Records;
+import com.springbootdemo2.hospitalproject.Entities.Rooms;
 import com.springbootdemo2.hospitalproject.Repositories.ReceptionistRepo;
+import com.springbootdemo2.hospitalproject.Repositories.RecordRepo;
 import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,8 @@ public class ReceptionistServices {
     @Autowired
     private ReceptionistRepo receptionistRepo;
 
+    @Autowired
+    private RecordRepo recordRepo;
     //Add Receptionist
     public Receptionist addReceptionist(Receptionist receptionist) {
         return receptionistRepo.save(receptionist);
@@ -42,7 +47,7 @@ public class ReceptionistServices {
     public Receptionist updateReceptionist(int id, Receptionist receptionist) {
         Optional<Receptionist> receptionistOptional = receptionistRepo.findById(id);
         if (receptionistOptional.isPresent()) {
-            Receptionist receptionist1 = receptionist;
+            Receptionist receptionist1 = receptionistOptional.get();
             if(receptionist.getName() != null)
                 receptionist1.setName(receptionist.getName());
             if (receptionist.getGender() != null)
@@ -59,7 +64,7 @@ public class ReceptionistServices {
                 receptionist1.setPinno(receptionist.getPinno());
             if(receptionist.getSalary() != 0.0)
                 receptionist1.setSalary(receptionist.getSalary());
-            return receptionistRepo.save(receptionist);
+            return receptionistRepo.save(receptionist1);
         }else {
             throw new ResourceNotFoundException("Receptionist with id " + id + " not found, please enter valid id");
         }
@@ -84,13 +89,14 @@ public class ReceptionistServices {
 
     //Add Records Ids
     public void addRecordIds(int id, Set<Integer> recordIds) {
-        Receptionist receptionist = receptionistRepo.findById(id).get();
+        Receptionist receptionist = receptionistRepo.findById(id).orElseThrow(() -> new RuntimeException("Receptionist not found"));
         Set<Records> records = new HashSet<>();
         for(Integer recordId : recordIds) {
-            Records record = new Records();
-            record.setRecordId(recordId);
+            Records record = recordRepo.findById(recordId).orElseThrow(() -> new RuntimeException("Record not found"));
+            records.add(record);
         }
-        receptionist.setRecordsId(records);
+        receptionist.setRecords(records);
         receptionistRepo.save(receptionist);
     }
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
+@RequestMapping("receptionist")
 public class ReceptionistController {
     @Autowired
     private ReceptionistServices receptionistServices;
@@ -53,7 +54,8 @@ public class ReceptionistController {
 
     //Add Records Ids
     @PostMapping(path = "/addRecordsId")
-    public void addRecordsId(@RequestParam int id , Set<Integer> recordsId) {
+    public ResponseEntity<String> addRecordsId(@RequestParam int id ,@RequestBody Set<Integer>recordsId) {
         receptionistServices.addRecordIds(id, recordsId);
+        return ResponseEntity.ok("Ok");
     }
 }
