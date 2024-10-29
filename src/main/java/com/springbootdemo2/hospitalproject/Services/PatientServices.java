@@ -1,6 +1,7 @@
 package com.springbootdemo2.hospitalproject.Services;
 
 import com.springbootdemo2.hospitalproject.Entities.Patient;
+import com.springbootdemo2.hospitalproject.EntitiesDTO.PatientDTO;
 import com.springbootdemo2.hospitalproject.Repositories.PatientRepo;
 import com.springbootdemo2.hospitalproject.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,18 @@ public class PatientServices {
     private PatientRepo patientRepo;
 
     //Return All Patient
-    public List<Patient> getAllPatients() {
-        return patientRepo.findAll();
+    public List<PatientDTO> getAllPatients() {
+        return PatientDTO.toDtoList(patientRepo.findAll());
     }
     //Return The Patient By ID
-    public Patient getPatientById(int id) {
-        return patientRepo.findById(id).get();
+    public PatientDTO getPatientById(int id)
+    {
+        return PatientDTO.toDto(patientRepo.findById(id).get());
     }
     //Add Patient To DB
-    public Patient addPatient(Patient patient) {
-        return patientRepo.save(patient);
+    public PatientDTO addPatient(PatientDTO patient)
+    {
+        return PatientDTO.toDto(patientRepo.save(Patient.toEntity(patient)));
     }
 
     //Find Patient By Id

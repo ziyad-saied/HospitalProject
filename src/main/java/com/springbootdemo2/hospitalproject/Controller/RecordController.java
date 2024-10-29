@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("record")
 public class RecordController {
     @Autowired
     private RecordServices recordServices;

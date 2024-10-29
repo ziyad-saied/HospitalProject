@@ -1,5 +1,7 @@
 package com.springbootdemo2.hospitalproject.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +28,7 @@ public class Doctor extends Employee{
     private String qualification;
 
     @ManyToMany
+    @JsonBackReference
     @JoinTable(
             name = "doctor_Consult_Patient",
             joinColumns =@JoinColumn(name = "doc_id"),

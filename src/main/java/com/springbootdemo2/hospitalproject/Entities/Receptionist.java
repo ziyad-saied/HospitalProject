@@ -22,11 +22,11 @@ public class Receptionist extends Employee{
     @Column(name = "recep_id")
     private Integer receptionistId;
 
-    @ManyToMany(mappedBy = "recordId" ,cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "receptionist_maintains_records",
             joinColumns = @JoinColumn(name = "recep_id"),
-            inverseJoinColumns = @JoinColumn(name = "record_id")
+            inverseJoinColumns = @JoinColumn(name = "r_id")
     )
-    private Set<Records> recordsId;
+    private Set<Records> records;
 }
